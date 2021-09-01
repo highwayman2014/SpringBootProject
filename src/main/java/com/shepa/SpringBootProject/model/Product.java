@@ -1,11 +1,19 @@
-package com.shepa.SpringBootProject.content;
+package com.shepa.SpringBootProject.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "products")
 public class Product {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "price")
     private double cost;
 
     public Product() {
@@ -17,11 +25,11 @@ public class Product {
         this.cost = cost;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

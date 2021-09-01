@@ -1,22 +1,18 @@
 package com.shepa.SpringBootProject.repositories;
 
-import com.shepa.SpringBootProject.content.Product;
+import com.shepa.SpringBootProject.model.Product;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
+
 @Repository
-public class ProductRepository {
+public interface ProductRepository extends PagingAndSortingRepository<Product, Long> {
 
-    List<Product> products = new ArrayList<>();
+    List<Product> findAll();
 
-    public void addProduct(Product product){
-        products.add(product);
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
+    Product findTopByOrderByCostDesc();
+    Product findTopByOrderByCostAsc();
 
 }
