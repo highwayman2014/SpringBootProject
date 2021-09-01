@@ -1,10 +1,8 @@
 package com.shepa.SpringBootProject.content;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import javax.persistence.Entity;
 
-@Component
-@Scope("prototype")
+@Entity
 public class Product {
     private int id;
     private String title;
