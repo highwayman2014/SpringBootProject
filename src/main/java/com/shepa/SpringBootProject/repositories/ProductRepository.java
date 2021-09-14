@@ -14,5 +14,4 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 
     Product findTopByOrderByCostDesc();
     Product findTopByOrderByCostAsc();
-
 }
