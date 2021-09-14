@@ -22,6 +22,9 @@
             <td th:text="${product.id}"/>
             <td th:text="${product.title}"/>
             <td th:text="${product.cost}"/>
+            <td>
+                <a th:href="@{'/products/remove?id=' + ${product.id}}" role="button">Remove</a>
+            </td>
         </tr>
     </table>
 </div>
