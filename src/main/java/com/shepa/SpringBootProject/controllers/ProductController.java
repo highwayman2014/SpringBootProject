@@ -1,14 +1,11 @@
 package com.shepa.SpringBootProject.controllers;
 
-import com.shepa.SpringBootProject.content.Product;
+import com.shepa.SpringBootProject.model.Product;
 import com.shepa.SpringBootProject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 
 @Controller
 @RequestMapping("/products")
@@ -19,7 +16,7 @@ public class ProductController {
 
     @GetMapping(value = "/")
     public String index(){
-        return "start-page";
+        return "index";
     }
 
     @GetMapping(value = "/addProduct")
@@ -36,10 +33,28 @@ public class ProductController {
     }
 
     @GetMapping(value = "/listProducts")
-    @ResponseBody
-    public List<Product> listProducts(){
-        return productService.getProducts();
+    public String listProducts(Model model,
+                               @RequestParam(name = "type", defaultValue = "") String type){
+        if ("Min".equals(type)) {
+            model.addAttribute("products", productService.getProductWithMinimalPrice());
+        } else if ("Max".equals(type)) {
+            model.addAttribute("products", productService.getProductWithMaxPrice());
+        } else if ("MinAndMax".equals(type)) {
+            model.addAttribute("products", productService.getProductsWithMinAndMaxPrice());
+        } else {
+            model.addAttribute("products", productService.getProducts());
+        }
+
+        return "products-page";
     }
+    @GetMapping(value = "/listProducts/page")
+    public String listPageProducts(Model model,
+                               @RequestParam(name = "page") int page){
+
+        model.addAttribute("products", productService.getPageOfProducts(page));
+        return "products-page";
+    }
+
 
 
 }

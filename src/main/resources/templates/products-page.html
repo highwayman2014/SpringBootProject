@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Товары</title>
+</head>
+
+<body>
+<p>
+    <a href="http://localhost:8189/products/listProducts" target="_self">Все товары</a>
+    <a href="http://localhost:8189/products/listProducts?type=Min" target="_self">Минимальная цена</a>
+    <a href="http://localhost:8189/products/listProducts?type=Max" target="_self">Максимальная цена</a>
+    <a href="http://localhost:8189/products/listProducts?type=MinAndMax" target="_self">Минимальная и максимальная цена</a>
+</p>
+<p>
+    <a href="http://localhost:8189/products/listProducts/page?page=0" target="_self">C 1 по 10</a>
+    <a href="http://localhost:8189/products/listProducts/page?page=1" target="_self">C 11 по 20</a>
+</p>
+<div>
+    <table class="table">
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"/>
+            <td th:text="${product.title}"/>
+            <td th:text="${product.cost}"/>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
