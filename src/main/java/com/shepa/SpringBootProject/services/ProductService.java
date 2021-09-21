@@ -55,4 +55,8 @@ public class ProductService {
         return page.getContent();
     }
 
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
+
 }

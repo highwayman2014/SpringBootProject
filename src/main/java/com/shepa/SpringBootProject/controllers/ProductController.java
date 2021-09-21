@@ -55,6 +55,12 @@ public class ProductController {
         return "products-page";
     }
 
+    @GetMapping(value = "/remove")
+    public String removeProduct(Model model, @RequestParam(name = "id") Long id) {
+        productService.deleteProduct(id);
+        return "redirect:/products/listProducts";
+    }
+
 
 
 }
