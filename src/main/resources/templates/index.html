@@ -1,11 +1,28 @@
-﻿<!DOCTYPE html>
-<html>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<title>be1.ru</title>
-</head>
-<body>
-<p>Добро пожаловать!</p>
+<meta charset="utf-8">
+<title>GeekMarket</title>
+ <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<p><a href="http://localhost:8189/products/" target="_self">Главная</a> <a href="http://localhost:8189/products/addProduct" target="_self">Добавить товар</a> <a href="http://localhost:8189/products/listProducts" target="_self">Все товары</a></p>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <!-- Navigation -->
+	<div class= "container" th:replace="~{navigation :: navi(Home)}" />
+<div class="container"> 
+	<!-- Welcome -->
+    <section class="px-4 py-5 my-5 text-center border shadow-lg rounded-3">
+      <h2 class="welcome_header">GEEK <span class="light">MARKET</span></h2>
+      <p class="tagline">Добро пожаловать!</p>
+    </section>
+</div>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 </html>
