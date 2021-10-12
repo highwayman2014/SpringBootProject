@@ -5,20 +5,20 @@ import com.shepa.SpringBootProject.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 public class ProductService {
 
+    @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
-    public void setProductRepository(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public long countProducts(){
+        return productRepository.count();
     }
 
     public Product addProduct(Product product) {
@@ -53,9 +53,8 @@ public class ProductService {
         return products;
     }
 
-    public List<Product> getPageOfProducts(int pageNumber) {
-        Page<Product> page = productRepository.findAll(PageRequest.of(pageNumber,10));
-        return page.getContent();
+    public Page<Product> getPageOfProducts(int pageNumber) {
+        return productRepository.findAll(PageRequest.of(pageNumber,10));
     }
 
     public void deleteProduct(Long id) {

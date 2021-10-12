@@ -1,0 +1,64 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Корзина</title>
+	<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+
+<body>
+	<!-- Navigation -->
+    <div th:replace="~{navigation :: navi(Home)}" />
+
+    <div class="container">
+      <section class="mt-5 mb-4">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="card wish-list mb-4">
+              <div class="card-body">
+                <h5 class="mb-4">Корзина (<span th:text="${cart.getItemsCount() + cart.getStringProducts()}"></span>)</h5>
+                <div class="row mb-4" th:each="item : ${cart.getItems()}">
+                    <div>
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <h5 th:text="${item.getProduct().getTitle()}">Наименование товара</h5>
+                        </div>
+                        <div>
+							<p class="mb-0"><span><strong th:text="${item.getCount()}">1</strong></span></p>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <a th:href="@{'/cart/delete?id=' + ${item.getProduct().getId()}}" type="button" class="card-link-secondary small text-uppercase mr-3"><i class="fas fa-trash-alt mr-1"></i> Удалить из корзины </a>
+                        </div>
+                        <p class="mb-0"><span><strong th:text="${item.getCost()}">$17.99</strong></span></p>
+                      </div>
+                    </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card mb-4">
+              <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                <div>
+                      <strong>Общая стоимость</strong>
+                      <strong>
+                        <p class="mb-0">товаров в корзине</p>
+                      </strong>
+                    </div>
+                    <span>
+                        <strong th:text="${cart.getCost()}">$53.98</strong></span>
+                      </div>
+                <button type="button" class="btn btn-primary btn-block waves-effect waves-light">К оформлению</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+</body>
+</html>

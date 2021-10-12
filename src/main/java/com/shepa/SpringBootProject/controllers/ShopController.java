@@ -3,13 +3,18 @@ package com.shepa.SpringBootProject.controllers;
 import com.shepa.SpringBootProject.model.Product;
 import com.shepa.SpringBootProject.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 @Controller
-@RequestMapping("/products")
-public class ProductController {
+public class ShopController {
 
     @Autowired
     private ProductService productService;
@@ -19,22 +24,23 @@ public class ProductController {
         return "index";
     }
 
-    @GetMapping(value = "/addProduct")
+    @GetMapping(value = "/products/addProduct")
     public String addProduct(Model model){
         Product product = new Product();
         model.addAttribute("product", product);
         return "product-form";
     }
 
-    @PostMapping(value = "/resultForm")
+    @PostMapping(value = "/products/resultForm")
     public String resultForm(@ModelAttribute("product") Product product) {
         productService.addProduct(product);
         return "redirect:/products/listProducts";
     }
 
-    @GetMapping(value = "/listProducts")
+    @GetMapping(value = "/products/listProducts")
     public String listProducts(Model model,
-                               @RequestParam(name = "type", defaultValue = "") String type){
+                               @RequestParam(name = "type", defaultValue = "") String type,
+                               @RequestParam("page") Optional<Integer> page){
         if ("Min".equals(type)) {
             model.addAttribute("products", productService.getProductWithMinimalPrice());
         } else if ("Max".equals(type)) {
@@ -42,12 +48,22 @@ public class ProductController {
         } else if ("MinAndMax".equals(type)) {
             model.addAttribute("products", productService.getProductsWithMinAndMaxPrice());
         } else {
-            model.addAttribute("products", productService.getProducts());
+            int currentPage = page.orElse(1);
+            Page<Product> pageProducts = productService.getPageOfProducts(currentPage - 1);
+            model.addAttribute("products", pageProducts.getContent());
+            int totalPages = pageProducts.getTotalPages();
+            model.addAttribute(totalPages);
+            if (totalPages > 0) {
+                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                        .boxed()
+                        .collect(Collectors.toList());
+                model.addAttribute("pageNumbers", pageNumbers);
+            }
         }
 
         return "products-page";
     }
-    @GetMapping(value = "/listProducts/page")
+    @GetMapping(value = "/products/listProducts/page")
     public String listPageProducts(Model model,
                                @RequestParam(name = "page") int page){
 
@@ -55,12 +71,9 @@ public class ProductController {
         return "products-page";
     }
 
-    @GetMapping(value = "/remove")
+    @GetMapping(value = "/products/remove")
     public String removeProduct(Model model, @RequestParam(name = "id") Long id) {
         productService.deleteProduct(id);
         return "redirect:/products/listProducts";
     }
-
-
-
 }

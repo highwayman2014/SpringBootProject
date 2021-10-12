@@ -16,6 +16,10 @@ public class Product {
     @Column(name = "price")
     private double cost;
 
+    @ManyToOne
+    @JoinColumn(name="category_id")
+    private Category category;
+
     public Product() {
 
     }
