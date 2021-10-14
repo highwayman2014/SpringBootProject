@@ -16,6 +16,14 @@ public class Product {
     @Column(name = "price")
     private double cost;
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
