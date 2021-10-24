@@ -1,6 +1,8 @@
 package com.shepa.SpringBootProject.services;
 
+import com.shepa.SpringBootProject.model.Category;
 import com.shepa.SpringBootProject.model.Product;
+import com.shepa.SpringBootProject.repositories.CategoryRepository;
 import com.shepa.SpringBootProject.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,13 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    /*
+    Работа с товарами
+     */
 
     public long countProducts(){
         return productRepository.count();
@@ -61,4 +70,11 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+    /*
+    Работа с категориями
+     */
+
+    public List<Category> getCategories() {
+        return categoryRepository.findAll();
+    }
 }

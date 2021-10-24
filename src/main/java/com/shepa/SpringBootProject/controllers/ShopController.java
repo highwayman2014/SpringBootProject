@@ -26,8 +26,8 @@ public class ShopController {
 
     @GetMapping(value = "/products/addProduct")
     public String addProduct(Model model){
-        Product product = new Product();
-        model.addAttribute("product", product);
+        model.addAttribute("product", new Product());
+        model.addAttribute("categories", productService.getCategories());
         return "product-form";
     }
 

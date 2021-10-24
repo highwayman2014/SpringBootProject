@@ -19,11 +19,14 @@
 	  <a class="navbar-brand" th:href="@{/}">Главная</a>
 		<div class="navbar-collapse collapse" id="mainNavbar" style="">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-			  <li class="nav-item">
+			<li class="nav-item">
 				<a class="nav-link" th:href="@{/products/listProducts}">Товары</a>		
 			</li>
 			<li class="nav-item" sec:authorize="isAuthenticated()">
 				<a class="nav-link" th:href="@{/cart}">Корзина</a>
+			</li>
+			<li class="nav-item" sec:authorize="hasRole('ADMIN')">
+				<a class="nav-link" th:href="@{/products/addProduct}">Добавить товар</a>
 			</li>
           </ul>
 			<a th:href="@{/login}" class="nav-link" sec:authorize="!isAuthenticated()">Войти</a>
