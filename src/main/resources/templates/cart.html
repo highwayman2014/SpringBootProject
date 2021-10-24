@@ -12,7 +12,7 @@
     <div th:replace="~{navigation :: navi(Home)}" />
 
     <div class="container">
-      <section class="mt-5 mb-4">
+      <form class="mt-5 mb-4" th:method="POST" th:action="@{/cart/newOrder}" th:object="${cart}">
         <div class="row">
           <div class="col-lg-8">
             <div class="card wish-list mb-4">
@@ -53,12 +53,12 @@
                     <span>
                         <strong th:text="${cart.getCost()}">$53.98</strong></span>
                       </div>
-                <button type="button" class="btn btn-primary btn-block waves-effect waves-light">К оформлению</button>
+                <button type="submit" class="btn btn-primary btn-block waves-effect waves-light">К оформлению</button>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </form>
     </div>
 </body>
 </html>
